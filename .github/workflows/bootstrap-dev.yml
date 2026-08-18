@@ -1,8 +1,6 @@
 name: Bootstrap DEV from Public Snapshot
 
 on:
-  push:
-    branches: [main]
   workflow_dispatch:
 
 permissions:
@@ -10,7 +8,6 @@ permissions:
 
 jobs:
   bootstrap:
-    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout DEV repository
@@ -18,21 +15,21 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Checkout exact PUBLIC snapshot
+      - name: Checkout exact PUBLIC snapshot outside workspace
         uses: actions/checkout@v4
         with:
           repository: scmsohel/multi-remote-card
           ref: 0c420f63a3bf24522e50a6caf3141761304ea508
-          path: public-snapshot
+          path: /tmp/public-snapshot
           fetch-depth: 1
 
-      - name: Promote snapshot into DEV
+      - name: Promote exact snapshot into DEV
         run: |
           rsync -a --delete \
             --exclude '.git' \
             --exclude '.github/workflows/release.yml' \
             --exclude '.github/workflows/bootstrap-dev.yml' \
-            public-snapshot/ ./
+            /tmp/public-snapshot/ "$GITHUB_WORKSPACE/"
 
       - name: Commit DEV baseline
         run: |

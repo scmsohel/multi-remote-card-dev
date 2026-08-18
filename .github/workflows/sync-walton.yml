@@ -7,6 +7,7 @@ on:
     paths:
       - 'remote-designs/fan.js'
       - 'remote-designs/walton-ceiling-fan.js'
+      - 'remote-designs/box.js'
       - '.github/workflows/sync-walton.yml'
   workflow_dispatch:
 
@@ -52,6 +53,28 @@ jobs:
           walton_start = text.index('// Modern segmented Walton remote layout.')
           walton_end = text.index('const boxRemote=', walton_start)
           text = text[:walton_start] + '// Modern segmented Walton remote layout.\n' + walton.rstrip() + '\n' + text[walton_end:]
+
+          box = Path('remote-designs/box.js').read_text()
+          box = box.replace('export const boxRemote', 'const boxRemote', 1)
+          box_start = text.index('const boxRemote=', walton_start)
+          box_end = text.index('const REMOTE_DESIGNS=', box_start)
+          text = text[:box_start] + box.rstrip() + '\n' + text[box_end:]
+
+          old_schema = "for(const c of d.controls)fields.push({name:p+c.key,label:`Remote ${n} ${c.label}`,selector:{entity:{}}});return fields;}"
+          new_schema = "for(const c of d.controls)fields.push({name:p+c.key,label:`Remote ${n} ${c.label}`,selector:c.type==='text'?{text:{}}:{entity:{}}});return fields;}"
+          if old_schema in text:
+              text = text.replace(old_schema, new_schema, 1)
+
+          old_value = "if(k==='fan'||k==='light')return r[k]||'';return r.actions?.[k]||r[k]||'';}"
+          new_value = "if(k==='fan'||k==='light'||k.endsWith('_label'))return r[k]||'';return r.actions?.[k]||r[k]||'';}"
+          if old_value in text:
+              text = text.replace(old_value, new_value, 1)
+
+          old_collect = "for(const c of d.controls){const x=v[`remote${n}_${c.key}`];if(x)a[c.key]=x;}return{name:this._multiple?(v[`remote${n}_name`]||`REMOTE ${n}`):undefined,design:id,device_name:v[`remote${n}_device_name`]||d.defaultName,fan:v[`remote${n}_fan`]||'',light:v[`remote${n}_light`]||'',actions:a};"
+          new_collect = "const extra={};for(const c of d.controls){const x=v[`remote${n}_${c.key}`];if(c.type==='text'){if(x)extra[c.key]=x;}else if(x)a[c.key]=x;}return{name:this._multiple?(v[`remote${n}_name`]||`REMOTE ${n}`):undefined,design:id,device_name:v[`remote${n}_device_name`]||d.defaultName,fan:v[`remote${n}_fan`]||'',light:v[`remote${n}_light`]||'',...extra,actions:a};"
+          if old_collect in text:
+              text = text.replace(old_collect, new_collect, 1)
+
           main.write_text(text)
 
       - name: Commit bundled card
@@ -63,5 +86,5 @@ jobs:
             echo 'No bundle changes to commit.'
             exit 0
           fi
-          git commit -m 'Sync Basic Fan and Walton remote bundles'
+          git commit -m 'Sync remote design bundles'
           git push origin main

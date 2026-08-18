@@ -1,6 +1,10 @@
 name: Bootstrap DEV from Public Snapshot
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/bootstrap-dev.yml'
   workflow_dispatch:
 
 permissions:
@@ -8,6 +12,7 @@ permissions:
 
 jobs:
   bootstrap:
+    if: github.actor != 'github-actions[bot]'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout DEV repository

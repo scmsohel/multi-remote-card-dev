@@ -27,12 +27,12 @@ const fanRemote = {
         ${[1,2,3,4,5,6].map(n => `<button class="speed s${n} ${speed === n ? 'active' : ''}" data-action="speed_${n}">${n}</button>`).join('')}
         <button class="fan-button ${on ? 'on' : ''}" data-action="fan">
           <svg class="fan-icon" viewBox="0 0 64 64" aria-hidden="true">
-            <g fill="var(--button-text)">
+            <g fill="#f5f5f5">
               <path d="M32 30C27 27 27 18 30 11c2-5 7-8 10-5 5 4 2 14-2 21-1 2-3 3-6 3z"/>
               <path d="M35 32c2-5 11-7 18-4 5 2 8 7 5 10-4 5-14 2-21-2-2-1-3-3-2-4z"/>
               <path d="M32 35c5 1 7 10 4 17-2 5-7 8-10 5-5-4-2-14-2-21-1-2 3-3 4-1z"/>
               <path d="M29 33c-1 5-10 7-17 4-5-2-8-7-5-10 4-5 14-2 21 2 2 1 3 3 1 4z"/>
-              <circle cx="32" cy="32" r="6" fill="var(--button-text)"/>
+              <circle cx="32" cy="32" r="6" fill="#f5f5f5"/>
             </g>
           </svg>
         </button>
@@ -92,8 +92,8 @@ const waltonCeilingFanRemote = {
         .walton-speed:active{transform:translate(-50%,-50%) translateY(2px)!important;box-shadow:0 3px 8px var(--shadow),inset 0 2px 5px var(--shadow)!important;filter:brightness(.96)!important}
         .walton-center{position:absolute!important;left:50%;top:50%;width:78px!important;height:78px!important;min-width:78px!important;min-height:78px!important;padding:0!important;transform:translate(-50%,-50%)!important;border:0!important;border-radius:50%!important;background:var(--button)!important;color:var(--button-text)!important;display:grid!important;place-items:center;cursor:pointer;box-shadow:inset 0 2px 7px var(--shadow),0 7px 16px var(--shadow)!important;transition:transform .1s,box-shadow .1s,filter .1s!important}
         .walton-center:active{transform:translate(-50%,-50%) translateY(2px)!important;box-shadow:inset 0 4px 9px var(--shadow),0 3px 8px var(--shadow)!important;filter:brightness(.96)!important}.walton-fan-icon{width:38px;height:38px}
-        .walton-timers{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin:0 0 7px}.walton-timers button{height:40px;border-radius:21px;font-size:13px;font-weight:750;display:flex;align-items:center;justify-content:center;gap:5px}
-        .walton-bottom{display:grid;grid-template-columns:1fr 1fr;gap:7px;align-items:stretch}.walton-bottom button{height:44px;border-radius:22px;font-size:14px;font-weight:750;display:flex;align-items:center;justify-content:center;gap:7px;margin:0!important}
+        .walton-timers{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:7px;margin:0 0 7px}.walton-timers button{height:40px;border-radius:21px;font-size:13px;font-weight:750;display:flex;align-items:center;justify-content:center;gap:5px;min-width:0}
+        .walton-bottom{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;align-items:stretch;width:100%}.walton-bottom button{width:100%;min-width:0;height:44px;border-radius:22px;font-size:14px;font-weight:750;display:flex;align-items:center;justify-content:center;gap:7px;margin:0!important}
         .walton-device-name{margin:3px 0 0;text-align:center;font-size:12px;font-weight:700;line-height:1.15;opacity:.82}
         @media (max-width:420px){.walton-top{gap:7px;margin-bottom:7px}.walton-pill{height:42px;font-size:13px}.walton-circle{width:100%;max-width:360px}.walton-speed{width:60px!important;height:60px!important;min-width:60px!important;min-height:60px!important;font-size:18px!important}.walton-center{width:70px!important;height:70px!important;min-width:70px!important;min-height:70px!important}.walton-fan-icon{width:35px;height:35px}.walton-timers button{height:39px}.walton-bottom button{height:42px}}
       </style>

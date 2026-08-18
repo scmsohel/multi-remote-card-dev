@@ -51,13 +51,22 @@ jobs:
           walton = walton.replace('<button data-action="reverse">', '<button class="wide-button" data-action="reverse">')
 
           walton_start = text.index('// Modern segmented Walton remote layout.')
-          walton_end = text.index('const boxRemote=', walton_start)
+          box_match = re.search(r'(?m)^const\s+boxRemote\s*=', text[walton_start:])
+          if not box_match:
+              raise RuntimeError('Could not find bundled Box definition')
+          walton_end = walton_start + box_match.start()
           text = text[:walton_start] + '// Modern segmented Walton remote layout.\n' + walton.rstrip() + '\n' + text[walton_end:]
 
           box = Path('remote-designs/box.js').read_text()
           box = box.replace('export const boxRemote', 'const boxRemote', 1)
-          box_start = text.index('const boxRemote=', walton_start)
-          box_end = text.index('const REMOTE_DESIGNS=', box_start)
+          box_match = re.search(r'(?m)^const\s+boxRemote\s*=', text)
+          if not box_match:
+              raise RuntimeError('Could not find bundled Box definition after Walton sync')
+          box_start = box_match.start()
+          designs_match = re.search(r'(?m)^const\s+REMOTE_DESIGNS\s*=', text[box_start:])
+          if not designs_match:
+              raise RuntimeError('Could not find REMOTE_DESIGNS marker')
+          box_end = box_start + designs_match.start()
           text = text[:box_start] + box.rstrip() + '\n' + text[box_end:]
 
           old_schema = "for(const c of d.controls)fields.push({name:p+c.key,label:`Remote ${n} ${c.label}`,selector:{entity:{}}});return fields;}"

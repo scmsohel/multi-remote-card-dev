@@ -108,7 +108,15 @@ const waltonCeilingFanRemote = {
       </div>`;
   },
 };
-const boxRemote={id:'box',label:'Box',defaultName:'Fenda Sound Box',controls:[],render(ctx){return `<div class="coming"><div class="coming-icon">▣</div><div class="coming-title">${ctx.escape(ctx.room.device_name||this.defaultName)}</div><div class="coming-text">Box remote design is ready to be configured.</div></div>`;}};
+const boxRemote = {
+  id: 'box',
+  label: 'Box',
+  defaultName: 'Fenda Sound Box',
+  controls: [],
+  render(ctx) {
+    return `<div class="coming"><div class="coming-icon">▣</div><div class="coming-title">${ctx.escape(ctx.room.device_name || this.defaultName)}</div><div class="coming-text">Box remote design is ready to be configured.</div></div>`;
+  },
+};
 const REMOTE_DESIGNS=[fanRemote,waltonCeilingFanRemote,boxRemote],DESIGN_MAP=Object.fromEntries(REMOTE_DESIGNS.map(d=>[d.id,d]));
 
 class MultiRemoteCard extends HTMLElement{
@@ -128,10 +136,10 @@ class MultiRemoteCardEditor extends HTMLElement{
  constructor(){super();this.attachShadow({mode:'open'});this._config={};this._hass=null;this._multiple=false;this._form=null;this._switch=null;}
  setConfig(c){this._config=c||{};this._multiple=this._config.multiple_remotes===true;this._build();} set hass(v){this._hass=v;if(this._form)this._form.hass=v;else this._build();}
  _old(n){const r=this._config.rooms||{};return r[`remote${n}`]||r[n===1?'bedroom':'lounge']||{};} _design(n){return this._old(n).design||(n===2?'box':'fan');}
- _value(n,k){const r=this._old(n);if(k==='design')return this._design(n);if(k==='name')return r.name||(n===1?'BEDROOM':'LOUNGE');if(k==='device_name')return r.device_name||r.fan_name||(DESIGN_MAP[this._design(n)]||fanRemote).defaultName;if(k==='fan'||k==='light')return r[k]||'';return r.actions?.[k]||r[k]||'';}
- _schema(n){const p=`remote${n}_`,d=DESIGN_MAP[this._design(n)]||fanRemote,fields=[{name:p+'design',label:`Remote ${n} Design`,selector:{select:{options:REMOTE_DESIGNS.map(x=>({value:x.id,label:x.label})),mode:'dropdown'}}}];if(this._multiple)fields.push({name:p+'name',label:`Remote ${n} Name`,selector:{text:{}}});for(const c of d.controls)fields.push({name:p+c.key,label:`Remote ${n} ${c.label}`,selector:{entity:{}}});return fields;}
+ _value(n,k){const r=this._old(n);if(k==='design')return this._design(n);if(k==='name')return r.name||(n===1?'BEDROOM':'LOUNGE');if(k==='device_name')return r.device_name||r.fan_name||(DESIGN_MAP[this._design(n)]||fanRemote).defaultName;if(k==='fan'||k==='light'||k.endsWith('_label'))return r[k]||'';return r.actions?.[k]||r[k]||'';}
+ _schema(n){const p=`remote${n}_`,d=DESIGN_MAP[this._design(n)]||fanRemote,fields=[{name:p+'design',label:`Remote ${n} Design`,selector:{select:{options:REMOTE_DESIGNS.map(x=>({value:x.id,label:x.label})),mode:'dropdown'}}}];if(this._multiple)fields.push({name:p+'name',label:`Remote ${n} Name`,selector:{text:{}}});for(const c of d.controls)fields.push({name:p+c.key,label:`Remote ${n} ${c.label}`,selector:c.type==='text'?{text:{}}:{entity:{}}});return fields;}
  _data(n){const d=DESIGN_MAP[this._design(n)]||fanRemote,o={};for(const k of ['design','name','device_name'])o[`remote${n}_${k}`]=this._value(n,k);for(const c of d.controls)o[`remote${n}_${c.key}`]=this._value(n,c.key);return o;}
- _collect(v){const make=n=>{const id=v[`remote${n}_design`]||this._design(n),d=DESIGN_MAP[id]||fanRemote,a={};for(const c of d.controls){const x=v[`remote${n}_${c.key}`];if(x)a[c.key]=x;}return{name:this._multiple?(v[`remote${n}_name`]||`REMOTE ${n}`):undefined,design:id,device_name:v[`remote${n}_device_name`]||d.defaultName,fan:v[`remote${n}_fan`]||'',light:v[`remote${n}_light`]||'',actions:a};};return{...this._config,multiple_remotes:this._multiple,theme:v.theme||this._config.theme||'auto',rooms:{remote1:make(1),...(this._multiple?{remote2:make(2)}:{})}};}
+ _collect(v){const make=n=>{const id=v[`remote${n}_design`]||this._design(n),d=DESIGN_MAP[id]||fanRemote,a={};const extra={};for(const c of d.controls){const x=v[`remote${n}_${c.key}`];if(c.type==='text'){if(x)extra[c.key]=x;}else if(x)a[c.key]=x;}return{name:this._multiple?(v[`remote${n}_name`]||`REMOTE ${n}`):undefined,design:id,device_name:v[`remote${n}_device_name`]||d.defaultName,fan:v[`remote${n}_fan`]||'',light:v[`remote${n}_light`]||'',...extra,actions:a};};return{...this._config,multiple_remotes:this._multiple,theme:v.theme||this._config.theme||'auto',rooms:{remote1:make(1),...(this._multiple?{remote2:make(2)}:{})}};}
  _build(){if(!this._hass)return;this.shadowRoot.innerHTML=`<div class="box"><div class="row"><span>Multiple Remote</span><ha-switch id="multi"></ha-switch></div><ha-form id="form"></ha-form></div><style>.box{padding:8px 0}.row{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;font-weight:500}</style>`;this._switch=this.shadowRoot.querySelector('#multi');this._form=this.shadowRoot.querySelector('#form');this._switch.checked=this._multiple;this._form.hass=this._hass;this._form.schema=[{name:'theme',label:'Theme',selector:{select:{options:THEME_OPTIONS,mode:'dropdown'}}},...this._schema(1),...(this._multiple?this._schema(2):[])];this._form.data={theme:this._config.theme||'auto',...this._data(1),...(this._multiple?this._data(2):{})};this._switch.addEventListener('change',()=>{this._multiple=this._switch.checked;this._build();this._emit(this._form.data||{})});this._form.addEventListener('value-changed',e=>{e.stopPropagation();this._emit(e.detail.value||{})});}
  _emit(v){this.dispatchEvent(new CustomEvent('config-changed',{detail:{config:this._collect(v)},bubbles:true,composed:true}));}
 }

@@ -143,19 +143,19 @@ const boxRemote = {
         .box-top .box-button{height:54px;border-radius:27px;font-size:15px;letter-spacing:.4px}
         .box-power{color:#ff5b62!important}
         .box-stage{position:relative;height:390px;margin:0 0 16px}
-        .box-stage::before{content:"";position:absolute;left:50%;top:50%;width:300px;height:300px;border:1px solid color-mix(in srgb,var(--border) 76%,transparent);border-radius:50%;transform:translate(-50%,-50%);box-shadow:inset 0 0 24px color-mix(in srgb,var(--shadow) 45%,transparent);pointer-events:none}
+        .box-stage::before{content:"";position:absolute;left:50%;top:50%;width:304px;height:304px;border:1px solid color-mix(in srgb,var(--border) 78%,transparent);border-radius:50%;transform:translate(-50%,-50%);box-shadow:inset 0 0 24px color-mix(in srgb,var(--shadow) 45%,transparent);pointer-events:none}
         .box-source{position:absolute;z-index:2;width:82px;height:82px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;font-size:11px;line-height:1.05;letter-spacing:.2px}
         .box-source .source-icon{font-size:24px;line-height:1;font-weight:800}.box-source .source-label{font-size:11px;font-weight:800}
-        .box-light{left:2%;top:6%}.box-bt{right:2%;top:6%}.box-usb{left:2%;bottom:6%}.box-aux{right:2%;bottom:6%}
-        .box-control{position:absolute;z-index:3;left:50%;top:50%;width:250px;height:250px;transform:translate(-50%,-50%)}
+        .box-light{left:2%;top:5%}.box-bt{right:2%;top:5%}.box-usb{left:2%;bottom:5%}.box-aux{right:2%;bottom:5%;gap:6px}.box-aux .source-icon{font-size:28px}.box-aux .source-label{font-size:13px}
+        .box-control{position:absolute;z-index:3;left:50%;top:50%;width:258px;height:258px;transform:translate(-50%,-50%)}
         .box-control .box-button{position:absolute;display:flex;align-items:center;justify-content:center}
-        .box-vol-up{left:50%;top:0;transform:translateX(-50%);width:104px;height:72px;border-radius:30px!important;font-size:32px;line-height:1}
-        .box-prev{left:0;top:50%;transform:translateY(-50%);width:82px;height:76px;border-radius:24px!important;font-size:27px}
-        .box-play{left:50%;top:50%;transform:translate(-50%,-50%);width:88px;height:88px;border-radius:50%!important;font-size:27px}
-        .box-next{right:0;top:50%;transform:translateY(-50%);width:82px;height:76px;border-radius:24px!important;font-size:27px}
-        .box-vol-down{left:50%;bottom:0;transform:translateX(-50%);width:104px;height:72px;border-radius:30px!important;font-size:32px;line-height:1}
+        .box-vol-up{left:50%;top:0;transform:translateX(-50%);width:96px;height:68px;border-radius:28px!important;font-size:32px;line-height:1}
+        .box-prev{left:0;top:50%;transform:translateY(-50%);width:76px;height:70px;border-radius:22px!important;font-size:27px}
+        .box-play{left:50%;top:50%;transform:translate(-50%,-50%);width:80px;height:80px;border-radius:50%!important;font-size:25px}
+        .box-next{right:0;top:50%;transform:translateY(-50%);width:76px;height:70px;border-radius:22px!important;font-size:27px}
+        .box-vol-down{left:50%;bottom:0;transform:translateX(-50%);width:96px;height:68px;border-radius:28px!important;font-size:32px;line-height:1}
         .box-presets{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding-top:15px;border-top:1px solid var(--border)}.box-preset{height:62px;border-radius:22px;font-size:16px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 16px}
-        @media(max-width:430px){.box-shell{padding:11px;border-radius:24px}.box-top{gap:8px;margin-bottom:12px}.box-top .box-button{height:46px;font-size:13px}.box-stage{height:310px;margin-bottom:12px}.box-stage::before{width:238px;height:238px}.box-source{width:66px;height:66px}.box-source .source-icon{font-size:20px}.box-source .source-label{font-size:9px}.box-light{left:0;top:5%}.box-bt{right:0;top:5%}.box-usb{left:0;bottom:5%}.box-aux{right:0;bottom:5%}.box-control{width:198px;height:198px}.box-vol-up,.box-vol-down{width:86px;height:58px;font-size:27px}.box-prev,.box-next{width:68px;height:64px;font-size:23px}.box-play{width:72px;height:72px;font-size:22px}.box-preset{height:54px;border-radius:20px;font-size:14px}}
+        @media(max-width:430px){.box-shell{padding:11px;border-radius:24px}.box-top{gap:8px;margin-bottom:12px}.box-top .box-button{height:46px;font-size:13px}.box-stage{height:310px;margin-bottom:12px}.box-stage::before{width:238px;height:238px}.box-source{width:66px;height:66px}.box-source .source-icon{font-size:20px}.box-source .source-label{font-size:9px}.box-light{left:0;top:5%}.box-bt{right:0;top:5%}.box-usb{left:0;bottom:5%}.box-aux{right:0;bottom:5%}.box-aux .source-icon{font-size:23px}.box-aux .source-label{font-size:11px}.box-control{width:202px;height:202px}.box-vol-up,.box-vol-down{width:80px;height:56px;font-size:27px}.box-prev,.box-next{width:62px;height:60px;font-size:23px}.box-play{width:68px;height:68px;font-size:22px}.box-preset{height:54px;border-radius:20px;font-size:14px}}
       </style>
       <div class="box-remote"><div class="box-shell">
         <div class="box-top"><button class="box-button box-power" data-action="power">⏻ &nbsp; POWER</button><button class="box-button" data-action="mute">🔇 &nbsp; MUTE</button></div>

@@ -146,8 +146,7 @@ const boxRemote = {
         .box-remote{width:100%;max-width:570px;margin:0 auto;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text)}
         .box-remote *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
         .box-shell{padding:18px;border-radius:30px;background:linear-gradient(145deg,var(--c1),var(--c2));border:1px solid var(--border);box-shadow:inset 0 1px 0 var(--border),0 16px 34px var(--shadow)}
-        .box-button{border:0;background:var(--button);color:var(--button-text);box-shadow:0 7px 16px var(--shadow);cursor:pointer;transition:transform .1s,box-shadow .1s,filter .1s!important;font:inherit;font-weight:750}
-        .box-button:active{transform:translateY(2px)!important;box-shadow:0 3px 8px var(--shadow),inset 0 2px 5px var(--shadow)!important;filter:brightness(.96)!important}
+        .box-button{border:0;background:var(--button);color:var(--button-text);box-shadow:0 7px 16px var(--shadow);cursor:pointer;transition:box-shadow .1s,filter .1s!important;font:inherit;font-weight:750}
         .box-top{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px}
         .box-top .box-button{height:54px;border-radius:27px;font-size:15px;letter-spacing:.4px}
         .box-power{color:#ff5b62!important}
@@ -158,6 +157,7 @@ const boxRemote = {
         .box-light{left:2%;top:5%}.box-bt{right:2%;top:5%}.box-usb{left:2%;bottom:5%}.box-aux{right:2%;bottom:5%;gap:6px}.box-aux .source-icon{font-size:28px}.box-aux .source-label{font-size:13px}
         .box-control{position:absolute;z-index:3;left:50%;top:50%;width:258px;height:258px;transform:translate(-50%,-50%)}
         .box-control .box-button{position:absolute;display:flex;align-items:center;justify-content:center}
+        .box-control .box-button:active{box-shadow:0 3px 8px var(--shadow),inset 0 2px 5px var(--shadow)!important;filter:brightness(.96)!important}
         .box-vol-up{left:50%;top:0;transform:translateX(-50%);width:96px;height:68px;border-radius:28px!important;font-size:32px;line-height:1}
         .box-prev{left:0;top:50%;transform:translateY(-50%);width:76px;height:70px;border-radius:22px!important;font-size:27px}
         .box-play{left:50%;top:50%;transform:translate(-50%,-50%);width:80px;height:80px;border-radius:50%!important;font-size:25px}

@@ -142,61 +142,27 @@ const boxRemote = {
         .box-top{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
         .box-top .box-button{height:50px;border-radius:25px;font-size:14px;letter-spacing:.4px}
         .box-power{color:#ff5b62!important}
-
         .box-stage{position:relative;height:310px;margin:0 0 14px}
         .box-stage::before{content:"";position:absolute;left:50%;top:50%;width:68%;height:68%;border:1px solid color-mix(in srgb,var(--border) 70%,transparent);border-radius:50%;transform:translate(-50%,-50%);pointer-events:none}
-
         .box-source{position:absolute;z-index:2;width:72px;height:72px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;font-size:11px;line-height:1.05;letter-spacing:.2px}
-        .box-source .source-icon{font-size:22px;line-height:1;font-weight:500}
-        .box-source .source-label{font-size:10px;font-weight:800}
+        .box-source .source-icon{font-size:22px;line-height:1;font-weight:800}.box-source .source-label{font-size:10px;font-weight:800}
         .box-light{left:3%;top:5%}.box-bt{right:3%;top:5%}.box-usb{left:3%;bottom:5%}.box-aux{right:3%;bottom:5%}
-
         .box-control{position:absolute;z-index:3;left:50%;top:50%;transform:translate(-50%,-50%);display:grid;grid-template-columns:90px 108px 90px;grid-template-rows:64px 76px 64px;gap:10px;align-items:stretch}
-        .box-vol-up{grid-column:2;grid-row:1;border-radius:26px!important;font-size:30px;line-height:1}
-        .box-prev{grid-column:1;grid-row:2;border-radius:22px!important;font-size:26px}
-        .box-play{grid-column:2;grid-row:2;border-radius:50%!important;font-size:24px;width:76px;height:76px;justify-self:center}
-        .box-next{grid-column:3;grid-row:2;border-radius:22px!important;font-size:26px}
-        .box-vol-down{grid-column:2;grid-row:3;border-radius:26px!important;font-size:30px;line-height:1}
-
-        .box-presets{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:13px;border-top:1px solid var(--border)}
-        .box-preset{height:58px;border-radius:20px;font-size:16px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 14px}
-
-        @media(max-width:430px){
-          .box-shell{padding:11px;border-radius:24px}.box-top{gap:8px;margin-bottom:12px}.box-top .box-button{height:46px}
-          .box-stage{height:286px;margin-bottom:12px}
-          .box-stage::before{width:70%;height:70%}
-          .box-source{width:66px;height:66px}.box-source .source-icon{font-size:20px}.box-source .source-label{font-size:9px}
-          .box-light{left:0;top:4%}.box-bt{right:0;top:4%}.box-usb{left:0;bottom:4%}.box-aux{right:0;bottom:4%}
-          .box-control{grid-template-columns:78px 96px 78px;grid-template-rows:58px 70px 58px;gap:8px}
-          .box-vol-up,.box-vol-down{font-size:27px}.box-prev,.box-next{font-size:23px}.box-play{width:70px;height:70px;font-size:21px}
-          .box-preset{height:54px;font-size:14px}
-        }
+        .box-vol-up{grid-column:2;grid-row:1;border-radius:26px!important;font-size:30px;line-height:1}.box-prev{grid-column:1;grid-row:2;border-radius:22px!important;font-size:26px}.box-play{grid-column:2;grid-row:2;border-radius:50%!important;font-size:24px;width:76px;height:76px;justify-self:center}.box-next{grid-column:3;grid-row:2;border-radius:22px!important;font-size:26px}.box-vol-down{grid-column:2;grid-row:3;border-radius:26px!important;font-size:30px;line-height:1}
+        .box-presets{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding-top:13px;border-top:1px solid var(--border)}.box-preset{height:58px;border-radius:20px;font-size:16px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;padding:0 14px}
+        @media(max-width:430px){.box-shell{padding:11px;border-radius:24px}.box-top{gap:8px;margin-bottom:12px}.box-top .box-button{height:46px}.box-stage{height:286px;margin-bottom:12px}.box-stage::before{width:70%;height:70%}.box-source{width:66px;height:66px}.box-source .source-icon{font-size:20px}.box-source .source-label{font-size:9px}.box-light{left:0;top:4%}.box-bt{right:0;top:4%}.box-usb{left:0;bottom:4%}.box-aux{right:0;bottom:4%}.box-control{grid-template-columns:78px 96px 78px;grid-template-rows:58px 70px 58px;gap:8px}.box-vol-up,.box-vol-down{font-size:27px}.box-prev,.box-next{font-size:23px}.box-play{width:70px;height:70px;font-size:21px}.box-preset{height:54px;font-size:14px}}
       </style>
-      <div class="box-remote">
-        <div class="box-shell">
-          <div class="box-top">
-            <button class="box-button box-power" data-action="power">⏻ &nbsp; POWER</button>
-            <button class="box-button" data-action="mute">🔇 &nbsp; MUTE</button>
-          </div>
-          <div class="box-stage">
-            <button class="box-button box-source box-light" data-action="light"><span class="source-icon">💡</span><span class="source-label">LIGHT</span></button>
-            <button class="box-button box-source box-bt" data-action="bluetooth"><span class="source-icon">♕</span><span class="source-label">BT</span></button>
-            <button class="box-button box-source box-usb" data-action="usb"><span class="source-icon">▣</span><span class="source-label">USB</span></button>
-            <button class="box-button box-source box-aux" data-action="aux"><span class="source-icon">⌁</span><span class="source-label">AUX</span></button>
-            <div class="box-control">
-              <button class="box-button box-vol-up" data-action="volume_up">＋</button>
-              <button class="box-button box-prev" data-action="previous">⏮</button>
-              <button class="box-button box-play" data-action="play_pause">▶❚❚</button>
-              <button class="box-button box-next" data-action="next">⏭</button>
-              <button class="box-button box-vol-down" data-action="volume_down">−</button>
-            </div>
-          </div>
-          <div class="box-presets">
-            <button class="box-button box-preset" data-action="preset_1">${p1}</button>
-            <button class="box-button box-preset" data-action="preset_2">${p2}</button>
-          </div>
+      <div class="box-remote"><div class="box-shell">
+        <div class="box-top"><button class="box-button box-power" data-action="power">⏻ &nbsp; POWER</button><button class="box-button" data-action="mute">🔇 &nbsp; MUTE</button></div>
+        <div class="box-stage">
+          <button class="box-button box-source box-light" data-action="light"><span class="source-icon">💡</span><span class="source-label">LIGHT</span></button>
+          <button class="box-button box-source box-bt" data-action="bluetooth"><span class="source-icon">BT</span><span class="source-label">BT</span></button>
+          <button class="box-button box-source box-usb" data-action="usb"><span class="source-icon">▣</span><span class="source-label">USB</span></button>
+          <button class="box-button box-source box-aux" data-action="aux"><span class="source-icon">⌁</span><span class="source-label">AUX</span></button>
+          <div class="box-control"><button class="box-button box-vol-up" data-action="volume_up">＋</button><button class="box-button box-prev" data-action="previous">⏮</button><button class="box-button box-play" data-action="play_pause">▶❚❚</button><button class="box-button box-next" data-action="next">⏭</button><button class="box-button box-vol-down" data-action="volume_down">−</button></div>
         </div>
-      </div>`;
+        <div class="box-presets"><button class="box-button box-preset" data-action="preset_1">${p1}</button><button class="box-button box-preset" data-action="preset_2">${p2}</button></div>
+      </div></div>`;
   },
 };
 const REMOTE_DESIGNS=[fanRemote,waltonCeilingFanRemote,boxRemote],DESIGN_MAP=Object.fromEntries(REMOTE_DESIGNS.map(d=>[d.id,d]));

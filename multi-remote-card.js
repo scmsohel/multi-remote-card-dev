@@ -22,10 +22,19 @@ const fanRemote = {
     const on = fan?.state === 'on';
     const pct = Number(fan?.attributes?.percentage || 0);
     const speed = pct ? Math.max(1, Math.min(6, Math.round(pct / 100 * 6))) : 0;
+    const feedback = `onpointerdown="this.classList.remove('press-feedback');void this.offsetWidth;this.classList.add('press-feedback')"`;
     return `
+      <style>
+        @keyframes basicFanPressFeedback {
+          0% { transform: scale(1); filter: brightness(1); box-shadow: 0 6px 14px var(--shadow); }
+          35% { transform: scale(.94); filter: brightness(.88); box-shadow: inset 0 3px 8px var(--shadow); }
+          100% { transform: scale(1); filter: brightness(1); box-shadow: 0 6px 14px var(--shadow); }
+        }
+        .press-feedback { animation: basicFanPressFeedback .32s ease-out !important; }
+      </style>
       <div class="fan-area">
         ${[1,2,3,4,5,6].map(n => `<button class="speed s${n} ${speed === n ? 'active' : ''}" data-action="speed_${n}">${n}</button>`).join('')}
-        <button class="fan-button ${on ? 'on' : ''}" data-action="fan">
+        <button class="fan-button ${on ? 'on' : ''}" data-action="fan" ${feedback}>
           <svg class="fan-icon" style="color:var(--text)!important;fill:var(--text)!important;opacity:1!important" viewBox="0 0 64 64" aria-hidden="true">
             <g fill="currentColor">
               <path d="M32 30C27 27 27 18 30 11c2-5 7-8 10-5 5 4 2 14-2 21-1 2-3 3-6 3z"/>
@@ -37,17 +46,17 @@ const fanRemote = {
           </svg>
         </button>
       </div>
-      <button class="wide-button" data-action="reverse">⇄ &nbsp; REVERSE</button>
+      <button class="wide-button" data-action="reverse" ${feedback}>⇄ &nbsp; REVERSE</button>
       <div class="three-buttons">
-        <button class="mode-button" data-action="eco">ECO</button>
-        <button class="mode-button" data-action="light">💡</button>
-        <button class="mode-button" data-action="max">MAX</button>
+        <button class="mode-button" data-action="eco" ${feedback}>ECO</button>
+        <button class="mode-button" data-action="light" ${feedback}>💡</button>
+        <button class="mode-button" data-action="max" ${feedback}>MAX</button>
       </div>
       <div class="section-title">TIMER</div>
       <div class="three-buttons">
-        <button class="mode-button" data-action="timer_1h">◷ &nbsp; 1H</button>
-        <button class="mode-button" data-action="timer_4h">◷ &nbsp; 4H</button>
-        <button class="mode-button" data-action="timer_8h">◷ &nbsp; 8H</button>
+        <button class="mode-button" data-action="timer_1h" ${feedback}>◷ &nbsp; 1H</button>
+        <button class="mode-button" data-action="timer_4h" ${feedback}>◷ &nbsp; 4H</button>
+        <button class="mode-button" data-action="timer_8h" ${feedback}>◷ &nbsp; 8H</button>
       </div>
       `;
   },

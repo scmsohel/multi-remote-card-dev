@@ -20,21 +20,23 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Checkout exact PUBLIC snapshot outside workspace
+      - name: Checkout exact PUBLIC snapshot
         uses: actions/checkout@v4
         with:
           repository: scmsohel/multi-remote-card
           ref: 0c420f63a3bf24522e50a6caf3141761304ea508
-          path: /tmp/public-snapshot
+          path: public-snapshot
           fetch-depth: 1
 
       - name: Promote exact snapshot into DEV
         run: |
           rsync -a --delete \
             --exclude '.git' \
+            --exclude 'public-snapshot' \
             --exclude '.github/workflows/release.yml' \
             --exclude '.github/workflows/bootstrap-dev.yml' \
-            /tmp/public-snapshot/ "$GITHUB_WORKSPACE/"
+            public-snapshot/ ./
+          rm -rf public-snapshot
 
       - name: Commit DEV baseline
         run: |

@@ -45,7 +45,7 @@ export const fanRemote = {
         <button class="mode-button" data-action="timer_4h">◷ &nbsp; 4H</button>
         <button class="mode-button" data-action="timer_8h">◷ &nbsp; 8H</button>
       </div>
-      <div class="design-title design-title-bottom">${ctx.escape(ctx.room.device_name || this.defaultName)}</div>`;
+      `;
   },
 };
 

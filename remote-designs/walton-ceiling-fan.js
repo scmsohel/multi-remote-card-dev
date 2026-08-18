@@ -50,7 +50,6 @@ export const waltonCeilingFanRemote = {
         </div>
         <div class="walton-timers"><button data-action="timer_2h">${clockIcon}<span>2H</span></button><button data-action="timer_4h">${clockIcon}<span>4H</span></button><button data-action="timer_8h">${clockIcon}<span>8H</span></button></div>
         <div class="walton-bottom"><button data-action="eco">ECO</button><button data-action="reverse">${revIcon}<span>REV</span></button></div>
-        <div class="walton-device-name">${ctx.escape(ctx.room.device_name || this.defaultName)}</div>
       </div>`;
   },
 };

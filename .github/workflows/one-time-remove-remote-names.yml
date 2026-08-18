@@ -1,6 +1,10 @@
 name: One-time remove remote names
 
 on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/one-time-remove-remote-names.yml'
   workflow_dispatch:
 
 permissions:

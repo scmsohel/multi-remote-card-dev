@@ -130,8 +130,8 @@ const boxRemote = {
     { key: 'preset_2_label', label: 'Preset 2 Name', type: 'text' },
   ],
   render(ctx) {
-    const p1 = ctx.escape(ctx.room.preset_1_label || 'P1');
-    const p2 = ctx.escape(ctx.room.preset_2_label || 'P2');
+    const p1 = ctx.escape(ctx.room.preset_1_label || ctx.room.actions?.preset_1_label || 'P1');
+    const p2 = ctx.escape(ctx.room.preset_2_label || ctx.room.actions?.preset_2_label || 'P2');
     return `
       <style>
         .box-remote{width:100%;max-width:500px;margin:0 auto;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:var(--text)}
